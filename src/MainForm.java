@@ -22,6 +22,7 @@ public class MainForm extends JDialog{
     private JLabel jlVerify;
     private JButton btShow;
     private JTextPane tpShowUsers;
+    private JButton btConnexion;
     private static boolean state = false;
 
     public MainForm(JFrame parent){
@@ -73,6 +74,12 @@ public class MainForm extends JDialog{
                 tpShowUsers.setVisible(state);
                 //récupération de la liste des utilisateurs
                 getAllUsers();
+            }
+        });
+        btConnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Connexion co = new Connexion(null);
             }
         });
     }

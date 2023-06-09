@@ -27,3 +27,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/mysql-connector-j-8.0.33.jar

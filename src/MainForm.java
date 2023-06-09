@@ -53,14 +53,15 @@ public class MainForm extends JDialog{
         String email = tfEmail.getText();
         String password = String.valueOf(pfPwd.getPassword());
         String verify = String.valueOf(pfVerify.getPassword());
-        //vérification si les champs sont bien remplis
+        //vérification si les champs ne sont pas remplis
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Veuillez remplir tous les champs du formulaire",
-                    "Essaie encore",
+                    "Erreur Formulaire",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //Vérification si les passwords ne correspondent pas
         if(!password.equals(verify)){
             JOptionPane.showMessageDialog(this,
                     "Les mots de passe ne correpondent pas",
@@ -68,6 +69,22 @@ public class MainForm extends JDialog{
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //créer un nouvel objet user
         User user = new User(nom,prenom,email,password);
+        //tester si le compte existe
+        if(Request.getUserByMail(user)!=null){
+            JOptionPane.showMessageDialog(this,
+                    "Le compte existe deja",
+                    "Erreur BDD",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //ajout de l'utilisateur en BDD
+        User userAdd = Request.addUser(user);
+        JOptionPane.showMessageDialog(this,
+                "Le compte "+userAdd.getNom()+" a été ajouté en BDD",
+                "Validation",
+                JOptionPane.INFORMATION_MESSAGE);
+        return;
     }
 }
